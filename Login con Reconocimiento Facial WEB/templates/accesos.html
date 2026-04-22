@@ -1,0 +1,36 @@
+{% extends "base_menu.html" %}
+{% block title %}Control de accesos{% endblock %}
+{% block body %}
+<main class="container">
+  <header class="header">
+    <h1>Control de accesos</h1>
+    <p class="muted">Historial de eventos de <strong>{{ username }}</strong> (LOGIN, REGISTER, etc.).</p>
+  </header>
+
+  <section class="card">
+    {% if rows %}
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Fecha y hora</th>
+              <th>Evento</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for created_at, event in rows %}
+              <tr>
+                <td>{{ created_at }}</td>
+                <td><span class="badge">{{ event }}</span></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="muted small">Mostrando hasta {{ rows|length }} registros.</p>
+    {% else %}
+      <p class="muted">No hay accesos registrados todavía.</p>
+    {% endif %}
+  </section>
+</main>
+{% endblock %}
