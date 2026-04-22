@@ -1,0 +1,88 @@
+MANUAL DE USUARIO
+App: Login Facial + Menú (SQLite)
+
+1) Descripción general
+Esta aplicación permite:
+- Ingresar al sistema con reconocimiento facial desde la cámara.
+- Registrar nuevos usuarios capturando facciones con la cámara.
+- Acceder a un menú principal con:
+  a) Control de Accesos (lista de eventos registrados)
+  b) Reportes (resumen de eventos por día)
+
+2) Requisitos
+- Computadora con Windows y Python 3.x instalado.
+- Cámara web (cámara por defecto: índice 0).
+- Instalar dependencias (ver sección 3).
+
+3) Instalación
+Desde la carpeta `facial_login_menu/`:
+1. Ejecuta:
+   pip install -r requirements.txt
+2. Asegúrate de tener permisos para crear archivos en la carpeta del proyecto.
+
+4) Ejecución
+Ejecuta desde la carpeta `Ejercicios/Python`:
+python -m facial_login_menu.app
+
+5) Uso: Pantalla de Login
+Al iniciar, verás:
+- Campo de texto: `Usuario`
+- Botón `Ingresar`
+- Botón `Registrar`
+
+5.1) Registrar un usuario (captura facial)
+1. Escribe el nombre de usuario en el campo `Usuario`.
+2. Presiona `Registrar`.
+3. Se abrirá una ventana con la cámara y el texto:
+   - “Capturando encodings: X/Y | ESC: cancelar”
+4. El registro guardará varias capturas (encodings) del rostro.
+   - Por defecto se requieren 20 capturas válidas.
+5. Para cancelar el registro en cualquier momento, presiona `ESC`.
+6. Al finalizar correctamente, se creará el usuario en la base de datos y se registrará su información facial.
+
+Importante:
+- Para mejores resultados, coloca el rostro frente a la cámara, con buena iluminación.
+- Si no se detecta un rostro, el registro puede tardar o no completarse.
+
+5.2) Ingresar al sistema (verificación facial)
+1. Escribe el mismo nombre de usuario registrado previamente.
+2. Presiona `Ingresar`.
+3. Se abrirá la cámara y comenzará la verificación.
+   - Ventana: “Ingreso facial”
+4. Si el rostro coincide, se permitirá el acceso y se abrirá el menú principal.
+5. Si no coincide, verás el mensaje de error en la pantalla de login.
+6. Para cancelar la verificación en cualquier momento, presiona `ESC`.
+
+6) Uso: Menú principal
+Después del login correcto, se abre la ventana “Menú Principal” con botones:
+
+6.1) Control de Accesos
+- Abre una ventana donde se listan los eventos del usuario (por ejemplo: REGISTER y LOGIN).
+- Incluye fecha/hora del evento y el tipo de evento.
+- Botón `Refrescar` para actualizar la lista.
+
+6.2) Reportes
+- Abre una ventana con un resumen de eventos del sistema por día.
+- Incluye:
+  - Día (fecha)
+  - Total de eventos del día (LOGIN/REGISTER)
+- Botón `Refrescar` para actualizar el reporte.
+
+6.3) Configuración
+- En esta versión, el botón muestra un mensaje informativo (placeholder).
+
+6.4) Cerrar sesión
+- Cierra el menú principal y termina la sesión actual (finaliza la ventana).
+
+7) Base de datos
+Los usuarios y sus facciones se guardan en SQLite.
+- Archivo: `facial_login_menu/data/database.db`
+
+8) Solución de problemas (rápido)
+- Error: “No se detectó un rostro válido”
+  - Asegura buena iluminación y que el rostro quede centrado.
+- La cámara no abre
+  - Verifica que ningún otro programa esté usando la cámara.
+- “Rostro no coincide”
+  - Registra nuevamente el usuario (mejor iluminación y mejor encuadre).
+
